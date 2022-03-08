@@ -1,4 +1,5 @@
-package Simulation;
+package BruteForce;
+
 
 import java.util.*;
 import java.io.BufferedReader;
