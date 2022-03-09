@@ -160,6 +160,7 @@ public class BOJ_13460 {
 				}
 			}
 		}
+		System.out.println(-1);
 	}
 
 	private static char checkFirstMove(int dir, BallStep bs) {
