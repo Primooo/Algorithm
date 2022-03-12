@@ -2,66 +2,67 @@ package Practice;
 
 import java.util.*;
 
-public class Solution {
-	public int solution(String s) {
-		int answer = -1;
-		if(s.length() == 1) return 0;
-		
-		StringBuilder sb = new StringBuilder(s);
-		for(int i=1; i<=5; i++) {
-			for(int j=0; j<s.length()-i; j++) {
-				StringBuilder temp = new StringBuilder();
-				int currentIdx = j;
-				int jumpStep = i;
-				
-				while(currentIdx < s.length()) {
-					int nextIdx = currentIdx + jumpStep;
-					if(nextIdx >= s.length()) break;
-					if(i > 1 && sb.charAt(currentIdx) == '0') {
-						currentIdx += jumpStep;
-						continue;
-					}
-					
-					int currentNum = Integer.parseInt(sb.substring(currentIdx, nextIdx).toString());
-					if(currentNum == Math.pow(10,  i)-1) {
-						jumpStep++;
-					}
-					
-					if(nextIdx+jumpStep > s.length()) break;
-					int nextNum = Integer.parseInt(sb.substring(nextIdx, nextIdx+jumpStep).toString());
-					if(nextNum >= 100000) {
-						currentIdx += jumpStep;
-						continue;
-					}
-					
-					if(nextNum - currentNum == 1) {
-						if(temp.length() == 0) {
-							temp.append(Integer.toString(currentNum));
-							temp.append(Integer.toString(nextNum));
-						}
-						else {
-							temp.append(Integer.toString(nextNum));
-						}
-					} else {
-						if(temp.length() > answer) {
-							answer = temp.length();
-						}
-						temp.setLength(0);
-					}
-					currentIdx += jumpStep;
-				}
-				
-				if(temp.length() > answer) {
-					answer = temp.length();
-				}
-			}
-		}
-		return answer;
-	}
+class IntersectedArea {
+    int x1;
+    int y1;
+    int x2;
+    int y2;
+    int area1;
+    int area2;
+
+    IntersectedArea(int x1, int y1, int x2, int y2, int area1, int area2) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+        this.area1 = area1;
+        this.area2 = area2;
+    }
+}
+
+class Solution {
+    private final int div = 10000019;
+    public int solution(int width, int height, int[][] diagonals) {
+        int answer = 0;        
+        for(int i=0; i<diagonals.length; i++) {
+            int x1 = diagonals[i][0]-1;
+            int y1 = diagonals[i][1];
+            int x2 = diagonals[i][0];
+            int y2 = diagonals[i][1]-1;
+
+            answer += getDistance(0, 0, x1, y1) % div;
+            answer += getDistance(0, 0, height-x2, width-y2) % div;
+            answer += getDistance(0, 0, x2, y2) % div;
+            answer += getDistance(0, 0, height-x1, width-y1) % div;
+        }
+
+        return answer;
+    }
+
+    private int getDistance(int start_x, int start_y, int end_x, int end_y) {
+        int[][] map = new int[end_x+1][end_y+1];
+
+        for(int i=0; i<=end_x; i++) {
+            map[i][0] = 1;
+        }
+
+        for(int i=0; i<=end_y; i++) {
+            map[0][i] = 1;
+        }
+
+        for(int i=start_x+1; i<=end_x; i++) {
+            for(int j=start_y+1; j<=end_y; j++) {
+                map[i][j] = (map[i-1][j] + map[i][j-1]) % div;
+            }
+        }
+        return map[end_x][end_y];
+    }
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Solution solution = new Solution();
-		System.out.println(solution.solution("999910000"));
+		int[][] aa = {{1, 1}, {2, 2}};
+		solution.solution(2, 2, aa);
 	}
 
 }

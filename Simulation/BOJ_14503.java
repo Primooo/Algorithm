@@ -1,144 +1,92 @@
 package Simulation;
+
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
 public class BOJ_14503 {
-	private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	private static int N, M;
+	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static int[][] map;
-	public static void main(String[] args) throws IOException {
+	private static boolean[][] visited;
+	private static int[] dx = {-1, 0, 1, 0};
+	private static int[] dy = {0, 1, 0, -1};
+	private static int answer = 0;
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
 		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		
 		map = new int[N][M];
-		
+		visited = new boolean[N][M];
 		st = new StringTokenizer(br.readLine(), " ");
-		int cur_x = Integer.parseInt(st.nextToken())-1;
-		int cur_y = Integer.parseInt(st.nextToken())-1;
-		int cur_dir = Integer.parseInt(st.nextToken());
-		for(int i=0; i<N; i++) {
-			String mapStr = br.readLine();
-			String[] splitedStr = mapStr.split(" ");
-			for(int j=0; j<M; j++) {
-				map[i][j] = Integer.parseInt(splitedStr[j]);
-			}
-		}
-		// 현재 위치 청소
-		int clean_counter = 0;
-		int counter = 0;
-		if(map[cur_x][cur_y] == 0) {
-			map[cur_x][cur_y] = 2;
-			counter++;
-		}
-		boolean canMove = true;
+		int robot_x = Integer.parseInt(st.nextToken());
+		int robot_y = Integer.parseInt(st.nextToken());
+		int robot_dir = Integer.parseInt(st.nextToken());
 		
-		while(canMove) {
-			int next_x = -1;
-			int next_y = -1;
-			if(cur_dir == 0) {
-				if(clean_counter == 4) {
-					next_x = cur_x+1;
-					next_y = cur_y;
-					if(wallCheck(next_x, next_y)) {
-						break;
-					} else {
-						cur_x = next_x;
-					}
-					continue;
-				}
-				
-				if(map[cur_x][cur_y-1] == 0) {
-					cur_y = cur_y-1;
-					map[cur_x][cur_y] = 2;
-					counter++;
-					clean_counter = 0;
-					cur_dir = 3;
-				} else {
-					clean_counter++;
-					cur_dir = 3;
-				}
-			} else if (cur_dir == 1) {
-				if(clean_counter == 4) {
-					next_x = cur_x;
-					next_y = cur_y-1;
-					if(wallCheck(next_x, next_y)) {
-						break;
-					} else {
-						cur_y = next_y;
-					}
-					continue;
-				}
-				
-				if(map[cur_x-1][cur_y] == 0) {
-					cur_x = cur_x-1;
-					map[cur_x][cur_y] = 2;
-					counter++;
-					clean_counter = 0;
-					cur_dir = 0;
-				} else {
-					clean_counter++;
-					cur_dir = 0;
-				}
-				
-			} else if (cur_dir == 2) {
-				if(clean_counter == 4) {
-					next_x = cur_x-1;
-					next_y = cur_y;
-					if(wallCheck(next_x, next_y)) {
-						break;
-					} else {
-						cur_x = next_x;
-					}
-					continue;
-				}
-				
-				if(map[cur_x][cur_y+1] == 0) {
-					cur_y = cur_y+1;
-					map[cur_x][cur_y] = 2;
-					counter++;
-					clean_counter = 0;
-					cur_dir = 1;
-				} else {
-					clean_counter++;
-					cur_dir = 1;
-				}
-				
-			} else {
-				if(clean_counter == 4) {
-					next_x = cur_x;
-					next_y = cur_y+1;
-					if(wallCheck(next_x, next_y)) {
-						break;
-					} else {
-						cur_y = next_y;
-					}
-					continue;
-				}
-				
-				if(map[cur_x+1][cur_y] == 0) {
-					cur_x = cur_x+1;
-					map[cur_x][cur_y] = 2;
-					counter++;
-					clean_counter = 0;
-					cur_dir = 2;
-				} else {
-					clean_counter++;
-					cur_dir = 2;
-				}
-				
+		for(int i=0; i<N; i++) {
+			st = new StringTokenizer(br.readLine(), " ");
+			for(int j=0; j<M; j++) {
+				map[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-		System.out.println(counter);
-	}
-	
-	private static boolean wallCheck(int x, int y) {
-		if(map[x][y] == 1) {
-			return true;
-		} else {
-			return false;
-		}
+		
+		makeClean(robot_x, robot_y, robot_dir);
+		System.out.println(answer);
 	}
 
+	private static void makeClean(int x, int y, int dir) {
+		visited[x][y] = true;
+		answer++;
+		int cur_x, next_x;
+		int cur_y, next_y;
+		int cur_dir, next_dir;
+		
+		cur_x = next_x = x;
+		cur_y = next_y = y;
+		cur_dir = next_dir = dir;
+		
+		boolean canClean = true;
+		int blockedCounter = 0;
+		while(canClean) {
+			if(blockedCounter == 4) {
+				next_dir = cur_dir+2;
+				if(next_dir > 3) {
+					next_dir = next_dir % 4;
+				}
+				next_x = cur_x + dx[next_dir];
+				next_y = cur_y + dy[next_dir];
+				
+				if(map[next_x][next_y] == 1) {
+					canClean = false;
+				}
+				else {
+					blockedCounter = 0;
+					cur_x = next_x;
+					cur_y = next_y;
+				}
+				continue;
+			}
+			else {
+				next_dir = cur_dir-1;
+				if(next_dir < 0) {
+					next_dir = 3;
+				}
+				next_x = cur_x + dx[next_dir];
+				next_y = cur_y + dy[next_dir];
+			}
+			
+			if(map[next_x][next_y] == 0 && visited[next_x][next_y] == false) {
+				answer++;
+				visited[next_x][next_y] = true;
+				cur_x = next_x;
+				cur_y = next_y;
+				blockedCounter = 0;
+			}
+			else if(map[next_x][next_y] == 1 || visited[next_x][next_y] == true) {
+				blockedCounter++;
+			}
+			cur_dir = next_dir;
+		}
+	}
 }
