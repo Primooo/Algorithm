@@ -28,23 +28,6 @@ public class BOJ_14889 {
 	
 	private static void DFS(int count, int cur, int N) {
 		if(count == N/2) {
-//			ArrayList<Integer> team2 = new ArrayList<>();
-//			int idx = 0;
-//			int num = 0;
-//			while(num < N) {
-//				if(idx >= team1.size()) {
-//					team2.add(num);
-//					num++;
-//					continue;
-//				}
-//				if(team1.get(idx) != num) {
-//					team2.add(num);
-//				}
-//				else {
-//					idx++;
-//				}
-//				num++;
-//			}
 			int calculated = calculate(N);
 			if(minValue > calculated) minValue = calculated;
 			return;
