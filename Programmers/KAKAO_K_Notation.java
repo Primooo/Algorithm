@@ -5,7 +5,7 @@ import java.util.*;
 // 2022 KAKAO BLIND RECRUITMENT
 // 제목 : k 진수에서 소수 개수 구하기
 // 레벨 : 2
-public class K_Notation {
+public class KAKAO_K_Notation {
 	public int solution(int n, int k) {
         int answer = -1;
         String notation = makeNotation(n, k);
