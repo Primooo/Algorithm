@@ -3,8 +3,8 @@ package Programmers;
 import java.util.*;
 
 //2022 KAKAO BLIND RECRUITMENT
-//Á¦¸ñ : ÁÖÂ÷ ¿ä±İ °è»ê
-//·¹º§ : 2
+//ë¬¸ì œ : ì–‘ê¶ëŒ€íšŒ
+//ë ˆë²¨ : 2
 class KAKAO_PARKING_FEE {
     public int[] solution(int[] fees, String[] records) {
         ArrayList<String> carList = new ArrayList<String>();

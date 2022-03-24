@@ -3,8 +3,8 @@ package Programmers;
 import java.util.*;
 
 //2022 KAKAO BLIND RECRUITMENT
-//Á¦¸ñ : ¾ç±Ã´ëÈ¸
-//·¹º§ : 2
+//ë¬¸ì œ : ì£¼ì°¨ ìš”ê¸ˆ ê³„ì‚°
+//ë ˆë²¨ : 2
 class Lion {
     int scoreDiff;
     ArrayList<Integer> scoreList;

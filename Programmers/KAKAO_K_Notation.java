@@ -3,8 +3,8 @@ package Programmers;
 import java.util.*;
 
 // 2022 KAKAO BLIND RECRUITMENT
-// Á¦¸ñ : k Áø¼ö¿¡¼­ ¼Ò¼ö °³¼ö ±¸ÇÏ±â
-// ·¹º§ : 2
+// ë¬¸ì œ : kì§„ìˆ˜ì—ì„œ ì†Œìˆ˜ ê°œìˆ˜ êµ¬í•˜ê¸°
+// ë ˆë²¨ : 2
 public class KAKAO_K_Notation {
 	public int solution(int n, int k) {
         int answer = -1;
