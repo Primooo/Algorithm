@@ -36,8 +36,6 @@ public class BOJ_15685 {
 					int next_x = x + dy[dirList.get(k)];
 					int next_y = y + dx[dirList.get(k)];
 					if(next_x >= 0 && next_x < MAX && next_y >= 0 && next_y < MAX) {
-
-//						System.out.println(next_x + " " + next_y);
 						map[next_y][next_x] = true;
 					}
 					x = next_x;
