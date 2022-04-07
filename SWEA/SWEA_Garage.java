@@ -1,10 +1,10 @@
 package SWEA;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 /*
  * 삼성 모의 SW 역량테스트
  * 문제: 차량 정비소
  */
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.*;
 
 class Customer {
