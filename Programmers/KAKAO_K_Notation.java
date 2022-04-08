@@ -63,7 +63,7 @@ public class KAKAO_K_Notation {
                     if(st.peek() == 0) {
                         continue;
                     }
-                    else { // P0 pattern
+                    else {
                         long num = st.pop();
                         st.add((long)0);
                         if(isPrime(num)) result++;
