@@ -79,16 +79,11 @@ public class SWEA_LunchTime {
 	
 	private static void dfs(int idx, int n) {
 		if(idx == n) {
-//			for(int i=0; i<personList.size(); i++) {
-//				System.out.print(personList.get(i).selection + " ");
-//			}
-//			System.out.println();
-			
 			down(n);
 			return;
 		}
 		
-		for(int i=0; i<=1; i++) {
+		for(int i=0; i<=1; i++) { // 게단 종류
 			Person p = personList.get(idx);
 			Stair s = stairList.get(i);
 			int dist = Math.abs(p.x-s.x) + Math.abs(p.y-s.y);
@@ -99,7 +94,7 @@ public class SWEA_LunchTime {
 	}
 	
 	private static void down(int n) {
-		int[] personInStair = new int[2];
+		int[] personInStair = new int[2]; // Queue size로 하면 필요 없을듯
 		boolean[] visited = new boolean[n];
 		int[] waiting = new int[n];
 		Queue<Integer> q1 = new LinkedList<>();
@@ -128,7 +123,7 @@ public class SWEA_LunchTime {
 					break;
 				}
 			}
-			
+
 			for(int i=0; i<n; i++) {
 				if(visited[i] == true) continue;
 				int stairNum = personList.get(i).selection;
