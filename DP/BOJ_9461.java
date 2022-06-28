@@ -10,7 +10,8 @@ public class BOJ_9461 {
     public static void main(String[] args) throws IOException {
         int N = Integer.parseInt(br.readLine());
         int[] arr = new int[101];
-        arr[1] = arr[2] = arr[3] = 1;
+        arr[1] = arr[2] = arr
+                [3] = 1;
         arr[4] = arr[5] = 2;
         for(int i=6; i<=100; i++) {
             arr[i] = arr[i-5] + arr[i-1];
